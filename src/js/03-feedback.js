@@ -32,7 +32,7 @@ const onFeedbackFormItemChange = event => {
 const onFeedbackFormSubmit = event => {
   event.preventDefault();
 
-  if (event.target.email.value === '' || event.target.message.value === '') {
+  if (!event.target.email.value || !event.target.message.value) {
     alert('All fields must be filled!');
     return;
   }
