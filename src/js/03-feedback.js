@@ -1,7 +1,8 @@
 import throttle from 'lodash.throttle';
 
 const formEl = document.querySelector('.feedback-form');
-const feedbackData = {};
+let feedbackData =
+  JSON.parse(localStorage.getItem('feedback-form-state')) || {};
 
 const fillFeedbackFormFields = () => {
   try {
@@ -31,10 +32,15 @@ const onFeedbackFormItemChange = event => {
 const onFeedbackFormSubmit = event => {
   event.preventDefault();
 
+  if (event.target.email.value === '' || event.target.message.value === '') {
+    alert('All fields must be filled!');
+    return;
+  }
+  console.log(feedbackData);
+
   formEl.reset();
   localStorage.removeItem('feedback-form-state');
-
-  console.log(feedbackData);
+  feedbackData = {};
 };
 
 fillFeedbackFormFields();
